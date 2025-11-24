@@ -11,21 +11,25 @@ interface ModalProps {
 
 function Modal({ onClose, children }: ModalProps) {
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "Escape") {
+    const handleEsc = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
     };
   }, [onClose]);
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.currentTarget === e.target) {
+  const handleBackdropClick = (
+    event: React.MouseEvent<HTMLDivElement>
+  ): void => {
+    if (event.target === event.currentTarget) {
       onClose();
     }
   };

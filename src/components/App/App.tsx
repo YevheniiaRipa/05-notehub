@@ -32,8 +32,8 @@ function App() {
     placeholderData: keepPreviousData,
   });
 
-  const handlePageClick = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected + 1);
+  const handlePageClick = (page: number) => {
+    setCurrentPage(page);
   };
 
   const handleSearch = (query: string) => {
@@ -50,6 +50,7 @@ function App() {
           <Pagination
             pageCount={notesData.totalPages}
             onPageChange={handlePageClick}
+            currentPage={currentPage}
           />
         )}
         <button className={css.button} onClick={openModal}>
