@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { Toaster } from "react-hot-toast";
 import { fetchNotes } from "../../services/noteService";
@@ -29,6 +29,7 @@ function App() {
     queryKey: ["notes", currentPage, debouncedSearchTerm],
     queryFn: () =>
       fetchNotes({ page: currentPage, search: debouncedSearchTerm }),
+    placeholderData: keepPreviousData,
   });
 
   const handlePageClick = ({ selected }: { selected: number }) => {
